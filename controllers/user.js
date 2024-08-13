@@ -6,7 +6,7 @@ module.exports.createUser = async (req, res) => {
   try {
     const userData = await User.findOne({ username: req.body.username });
     if (userData) {
-      return res.status(401).send({ error: "Username already used" });
+      return res.status(409).send({ error: "Username already used" });
     }
     let hashedPassword = await bcrypt.hash(req.body.password, 10);
     let newUser = new User({
